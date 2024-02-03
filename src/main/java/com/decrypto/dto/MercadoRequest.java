@@ -1,5 +1,6 @@
 package com.decrypto.dto;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,7 +12,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MercadoRequest {
-
+    @Valid
     private MercadoDTO mercado;
     private Set<Long> comitenteIds;
 }

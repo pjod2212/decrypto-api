@@ -4,6 +4,7 @@ import com.decrypto.dto.MercadoRequest;
 import com.decrypto.entity.Mercado;
 import com.decrypto.service.MercadoService;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ public class MercadoController {
 
     @Operation(summary = "Create mercado")
     @PostMapping
-    public ResponseEntity<Mercado> createMercado(@RequestBody MercadoRequest mercado) {
+    public ResponseEntity<Mercado> createMercado(@Valid @RequestBody MercadoRequest mercado) {
         Mercado createdMercado = mercadoService.createMercado(mercado);
         return new ResponseEntity<>(createdMercado, HttpStatus.CREATED);
     }

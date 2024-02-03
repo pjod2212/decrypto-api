@@ -4,11 +4,20 @@ ON DUPLICATE KEY UPDATE nombre = nombre;
 INSERT INTO pais(id,nombre) VALUES(2,'Uruguay')
 ON DUPLICATE KEY UPDATE nombre = nombre;
 
-INSERT INTO comitente (id, descripcion) VALUES (1, 'MAE')
+INSERT INTO comitente (id, descripcion) VALUES (1, 'comitente 1')
 ON DUPLICATE KEY UPDATE descripcion = descripcion;
 
-INSERT INTO comitente (id, descripcion) VALUES (2, 'ROFEX')
+INSERT INTO comitente (id, descripcion) VALUES (2, 'comitente 2')
 ON DUPLICATE KEY UPDATE descripcion = descripcion;
 
-INSERT INTO comitente (id, descripcion) VALUES (3, 'UFEX')
+INSERT INTO comitente (id, descripcion) VALUES (3, 'comitente 3')
 ON DUPLICATE KEY UPDATE descripcion = descripcion;
+
+INSERT INTO mercado (id, codigo, descripcion, pais_id) VALUES (1, 'MAE', 'Mercado abierto electrónico', 1)
+ON DUPLICATE KEY UPDATE codigo = codigo;
+
+INSERT INTO mercado (id, codigo, descripcion, pais_id) VALUES (2, 'ROFEX', 'Fondos comunes de inversión', 1)
+ON DUPLICATE KEY UPDATE codigo = codigo;
+
+INSERT INTO mercado (id, codigo, descripcion, pais_id) VALUES (3, 'UFEX', 'Mercado de futuros y opciones de Uruguay', 2)
+ON DUPLICATE KEY UPDATE codigo = codigo;
