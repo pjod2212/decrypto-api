@@ -21,3 +21,4 @@ ON DUPLICATE KEY UPDATE codigo = codigo;
 
 INSERT INTO mercado (id, codigo, descripcion, pais_id) VALUES (3, 'UFEX', 'Mercado de futuros y opciones de Uruguay', 2)
 ON DUPLICATE KEY UPDATE codigo = codigo;
+

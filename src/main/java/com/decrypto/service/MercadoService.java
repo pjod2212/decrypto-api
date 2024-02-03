@@ -11,9 +11,7 @@ import com.decrypto.repository.MercadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class MercadoService {
@@ -24,11 +22,24 @@ public class MercadoService {
     @Autowired
     private ComitenteRepository comitenteRepository;
 
-    public Mercado createMercado(MercadoRequest mercadoRequest) {
-        List<Comitente> comitentes = comitenteRepository.findAllById(mercadoRequest.getComitenteIds());
+    public Mercado createOrUpdateMercado(MercadoRequest mercadoRequest) {
+        Optional<Set<Long>> comitentesIds = Optional.ofNullable(mercadoRequest.getComitenteIds());
 
-        if(comitentes.size() != mercadoRequest.getComitenteIds().size()) {
-            throw new NotFoundException("Alguno de los comitentes especificados no existe");
+        List<Comitente> comitentes = comitentesIds.map(ids -> comitenteRepository.findAllById(ids))
+                .orElseGet(Collections::emptyList);
+
+        comitentesIds.ifPresent(ids -> {
+            if (comitentes.size() != ids.size()) {
+                throw new NotFoundException("Alguno de los comitentes especificados no existe");
+            }
+        });
+
+        Optional<Mercado> mercado = mercadoRepository.findByCodigo(mercadoRequest.getMercado().getCodigo());
+
+        if( mercado.isPresent() ) {
+            Mercado updateMercado = mercado.get();
+            updateMercado.setComitentes( new HashSet<>(comitentes) );
+            return mercadoRepository.save(updateMercado);
         }
 
         return mercadoRepository.save(requestMapper(mercadoRequest, comitentes));
