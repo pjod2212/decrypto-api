@@ -1,9 +1,13 @@
 package com.decrypto.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
+import lombok.Data;
+
 import java.util.HashSet;
 import java.util.Set;
-
+@Data
+@Builder
 @Entity
 @Table(name = "mercado")
 public class Mercado {

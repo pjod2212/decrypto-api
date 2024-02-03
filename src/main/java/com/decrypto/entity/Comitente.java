@@ -1,5 +1,6 @@
 package com.decrypto.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -16,6 +17,7 @@ public class Comitente {
     @Column(unique = true)
     private String descripcion;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "comitentes")
     private Set<Mercado> mercados = new HashSet<>();
 
