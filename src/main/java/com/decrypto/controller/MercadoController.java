@@ -1,6 +1,7 @@
 package com.decrypto.controller;
 
-import com.decrypto.dto.MercadoRequest;
+import com.decrypto.dto.DistribucionComitentesDTO;
+import com.decrypto.dto.MercadoRequestDTO;
 import com.decrypto.entity.Mercado;
 import com.decrypto.service.MercadoService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -20,9 +21,8 @@ public class MercadoController {
 
     @Operation(summary = "Create mercado")
     @PostMapping
-    public ResponseEntity<Mercado> createMercado(@Valid @RequestBody MercadoRequest mercado) {
-        Mercado createdMercado = mercadoService.createOrUpdateMercado(mercado);
-        return new ResponseEntity<>(createdMercado, HttpStatus.CREATED);
+    public ResponseEntity<Mercado> createMercado(@Valid @RequestBody MercadoRequestDTO mercado) {
+        return new ResponseEntity<>(mercadoService.createOrUpdateMercado(mercado), HttpStatus.CREATED);
     }
     @Operation(summary = "Return all")
     @GetMapping
@@ -36,14 +36,19 @@ public class MercadoController {
         return new ResponseEntity<>(mercadoService.getMercadoById(id),HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Mercado> updateMercado(@PathVariable Long id, @RequestBody Mercado mercado) {
-        return new ResponseEntity<>(mercadoService.updateMercado(id, mercado), HttpStatus.OK);
+    @PutMapping
+    public ResponseEntity<Mercado> updateMercado(@Valid @RequestBody MercadoRequestDTO mercado) {
+        return new ResponseEntity<>(mercadoService.updateMercado(mercado), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteMercado(@PathVariable Long id) {
         mercadoService.deleteMercado(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/stats")
+    public ResponseEntity<List<DistribucionComitentesDTO>> stats() {
+        return new ResponseEntity<>(mercadoService.stats(), HttpStatus.OK);
     }
 }

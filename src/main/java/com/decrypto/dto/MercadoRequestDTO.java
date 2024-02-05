@@ -10,7 +10,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MercadoRequest {
+public class MercadoRequestDTO {
     @Valid
     private MercadoDTO mercado;
     private Set<Long> comitentes;

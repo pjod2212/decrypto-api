@@ -1,12 +1,14 @@
 package com.decrypto.service;
 
 
-import com.decrypto.dto.MercadoRequest;
+import com.decrypto.dto.DistribucionComitentesDTO;
+import com.decrypto.dto.MercadoRequestDTO;
 import com.decrypto.entity.Comitente;
 import com.decrypto.entity.Mercado;
-import com.decrypto.entity.Pais;
 import com.decrypto.exception.NotFoundException;
+import com.decrypto.mapper.Mapper;
 import com.decrypto.repository.ComitenteRepository;
+import com.decrypto.repository.DistribucionComitentesRepository;
 import com.decrypto.repository.MercadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,8 +24,14 @@ public class MercadoService {
     @Autowired
     private ComitenteRepository comitenteRepository;
 
-    public Mercado createOrUpdateMercado(MercadoRequest mercadoRequest) {
-        Optional<Set<Long>> comitentesRequest = Optional.ofNullable(mercadoRequest.getComitentes());
+    @Autowired
+    private DistribucionComitentesRepository distribucionComitentesRepository;
+
+    @Autowired
+    private Mapper mapper;
+
+    public Mercado createOrUpdateMercado(MercadoRequestDTO mercadoRequestDTO) {
+        Optional<Set<Long>> comitentesRequest = Optional.ofNullable(mercadoRequestDTO.getComitentes());
 
         List<Comitente> comitentes = comitentesRequest.map(ids -> comitenteRepository.findAllById(ids))
                 .orElseGet(Collections::emptyList);
@@ -34,7 +42,7 @@ public class MercadoService {
             }
         });
 
-        Optional<Mercado> mercado = mercadoRepository.findByCodigo(mercadoRequest.getMercado().getCodigo());
+        Optional<Mercado> mercado = mercadoRepository.findByCodigo(mercadoRequestDTO.getMercado().getCodigo());
 
         if( mercado.isPresent() ) {
             Mercado updateMercado = mercado.get();
@@ -42,7 +50,7 @@ public class MercadoService {
             return mercadoRepository.save(updateMercado);
         }
 
-        return mercadoRepository.save(requestMapper(mercadoRequest, comitentes));
+        return mercadoRepository.save(mapper.createMercado(mercadoRequestDTO, comitentes));
     }
 
     public List<Mercado> getAllMercados() {
@@ -53,12 +61,26 @@ public class MercadoService {
         return mercadoRepository.findById(id).orElseThrow(() -> new NotFoundException("Comitente no encontrado"));
     }
 
-    public Mercado updateMercado(Long id, Mercado mercado) {
-        if (mercadoRepository.existsById(id)) {
-            mercado.setId(id);
-            return mercadoRepository.save(mercado);
+    public Mercado updateMercado(MercadoRequestDTO mercado) {
+
+        Optional.ofNullable(mercado.getMercado().getId()).orElseThrow(() ->
+                new NotFoundException("El id de mercado no puede ser nulo"));
+
+        if (mercadoRepository.existsById(mercado.getMercado().getId())) {
+            Optional<Set<Long>> comitentesRequest = Optional.ofNullable(mercado.getComitentes());
+
+            List<Comitente> comitentes = comitentesRequest.map(ids -> comitenteRepository.findAllById(ids))
+                    .orElseGet(Collections::emptyList);
+
+            comitentesRequest.ifPresent(ids -> {
+                if (comitentes.size() != ids.size()) {
+                    throw new NotFoundException("Alguno de los comitentes especificados no existe");
+                }
+            });
+
+            return mercadoRepository.save(mapper.updateMercado(mercado,comitentes));
         } else {
-            throw new NotFoundException("No se puede encontrar el mercado con ID: " + id);
+            throw new NotFoundException("No se puede encontrar el mercado con ID: " + mercado.getMercado().getId());
         }
     }
 
@@ -66,15 +88,8 @@ public class MercadoService {
         mercadoRepository.deleteById(id);
     }
 
-    public Mercado requestMapper(MercadoRequest mercadoRequest, List<Comitente> comitentes) {
-        return  Mercado.builder()
-                .codigo(mercadoRequest.getMercado().getCodigo())
-                .pais(Pais.builder()
-                        .id(mercadoRequest.getMercado().getPais())
-                        .build())
-                .descripcion(mercadoRequest.getMercado().getDescripcion())
-                .comitentes(new HashSet<>(comitentes))
-                .build();
+    public List<DistribucionComitentesDTO> stats() {
+        return this.mapper.fillDistribucionComitentes(distribucionComitentesRepository.stats());
     }
 
 }
