@@ -23,12 +23,12 @@ public class MercadoService {
     private ComitenteRepository comitenteRepository;
 
     public Mercado createOrUpdateMercado(MercadoRequest mercadoRequest) {
-        Optional<Set<Long>> comitentesIds = Optional.ofNullable(mercadoRequest.getComitenteIds());
+        Optional<Set<Long>> comitentesRequest = Optional.ofNullable(mercadoRequest.getComitentes());
 
-        List<Comitente> comitentes = comitentesIds.map(ids -> comitenteRepository.findAllById(ids))
+        List<Comitente> comitentes = comitentesRequest.map(ids -> comitenteRepository.findAllById(ids))
                 .orElseGet(Collections::emptyList);
 
-        comitentesIds.ifPresent(ids -> {
+        comitentesRequest.ifPresent(ids -> {
             if (comitentes.size() != ids.size()) {
                 throw new NotFoundException("Alguno de los comitentes especificados no existe");
             }
