@@ -30,7 +30,10 @@ public class MercadoControllerTest {
     public void testGetMercadoById() {
         // Mock de un objeto Mercado y su ID
         Long mercadoId = 1L;
-        Mercado mercado = Mercado.builder().id(mercadoId).build();
+        Mercado mercado = Mercado.builder()
+                .codigo("MAE")
+                .descripcion("Mercado abierto electrónico")
+                .build();
 
         when(mercadoService.getMercadoById(mercadoId)).thenReturn(mercado);
 
@@ -39,8 +42,10 @@ public class MercadoControllerTest {
         // Verificar que el código de estado de la respuesta sea OK (200)
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
 
-        // Verifico que el id devuelto sea el enviado
-        assertEquals(mercadoId, responseEntity.getBody().getId());
+        // Verifico que la respuesta sea la esperada
+        assertEquals(mercado.getCodigo(), responseEntity.getBody().getCodigo());
+        assertEquals(mercado.getDescripcion(), responseEntity.getBody().getDescripcion());
+
     }
 }
 
