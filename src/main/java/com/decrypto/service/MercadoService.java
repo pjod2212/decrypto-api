@@ -5,6 +5,7 @@ import com.decrypto.dto.DistribucionComitentesDTO;
 import com.decrypto.dto.MercadoRequestDTO;
 import com.decrypto.entity.Comitente;
 import com.decrypto.entity.Mercado;
+import com.decrypto.exception.DuplicateMercadoException;
 import com.decrypto.exception.NotFoundException;
 import com.decrypto.mapper.Mapper;
 import com.decrypto.repository.ComitenteRepository;
@@ -30,7 +31,7 @@ public class MercadoService {
     @Autowired
     private Mapper mapper;
 
-    public Mercado createOrUpdateMercado(MercadoRequestDTO mercadoRequestDTO) {
+    public Mercado create(MercadoRequestDTO mercadoRequestDTO) {
         Optional<Set<Long>> comitentesRequest = Optional.ofNullable(mercadoRequestDTO.getComitentes());
 
         List<Comitente> comitentes = comitentesRequest.map(ids -> comitenteRepository.findAllById(ids))
@@ -45,9 +46,7 @@ public class MercadoService {
         Optional<Mercado> mercado = mercadoRepository.findByCodigo(mercadoRequestDTO.getMercado().getCodigo());
 
         if( mercado.isPresent() ) {
-            Mercado updateMercado = mercado.get();
-            updateMercado.setComitentes( new HashSet<>(comitentes) );
-            return mercadoRepository.save(updateMercado);
+            throw new DuplicateMercadoException("El mercado ya existe");
         }
 
         return mercadoRepository.save(mapper.createMercado(mercadoRequestDTO, comitentes));

@@ -22,7 +22,7 @@ public class MercadoController {
     @Operation(summary = "Create mercado")
     @PostMapping
     public ResponseEntity<Mercado> createMercado(@Valid @RequestBody MercadoRequestDTO mercado) {
-        return new ResponseEntity<>(mercadoService.createOrUpdateMercado(mercado), HttpStatus.CREATED);
+        return new ResponseEntity<>(mercadoService.create(mercado), HttpStatus.CREATED);
     }
     @Operation(summary = "Return all")
     @GetMapping
