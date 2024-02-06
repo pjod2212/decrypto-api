@@ -38,8 +38,11 @@ Al tener creada la conexión , click derecho crear nuevo database con nombre dec
 
 Clonear el proyecto , importarlo como proyecto maven. Los servicios se pueden correr desde http://localhost:8080/api/swagger-ui/index.html
 
-Ejemplo de properties 
 
+
+```properties
+
+# Ejemplo de properties 
 server.servlet.context-path=/api
 
 spring.datasource.url=jdbc:mysql://localhost:3306/decrypto
@@ -51,14 +54,6 @@ spring.sql.init.data-locations=classpath:data.sql
 spring.sql.init.mode=always
 spring.jpa.hibernate.ddl-auto=update
 
-```properties
-# Ejemplo de archivo de propiedades
-
-# Propiedad 1
-propiedad1 = valor1
-
-# Propiedad 2
-propiedad2 = valor2
 ```
 
 
