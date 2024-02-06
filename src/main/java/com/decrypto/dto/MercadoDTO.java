@@ -15,8 +15,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MercadoDTO {
 
+
+    private Long id;
     @NotNull(message = "codigo no debe ser nulo")
-    @NotEmpty(message = "codigo no debe estar en blanco")
     private String codigo;
     @NotNull(message = "descripcion no debe ser nulo")
     private String descripcion;

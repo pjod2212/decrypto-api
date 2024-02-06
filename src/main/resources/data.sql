@@ -13,6 +13,27 @@ ON DUPLICATE KEY UPDATE descripcion = descripcion;
 INSERT INTO comitente (id, descripcion) VALUES (3, 'comitente 3')
 ON DUPLICATE KEY UPDATE descripcion = descripcion;
 
+INSERT INTO comitente (id, descripcion) VALUES (4, 'comitente 4')
+ON DUPLICATE KEY UPDATE descripcion = descripcion;
+
+INSERT INTO comitente (id, descripcion) VALUES (5, 'comitente 5')
+ON DUPLICATE KEY UPDATE descripcion = descripcion;
+
+INSERT INTO comitente (id, descripcion) VALUES (6, 'comitente 6')
+ON DUPLICATE KEY UPDATE descripcion = descripcion;
+
+INSERT INTO comitente (id, descripcion) VALUES (7, 'comitente 7')
+ON DUPLICATE KEY UPDATE descripcion = descripcion;
+
+INSERT INTO comitente (id, descripcion) VALUES (8, 'comitente 8')
+ON DUPLICATE KEY UPDATE descripcion = descripcion;
+
+INSERT INTO comitente (id, descripcion) VALUES (9, 'comitente 9')
+ON DUPLICATE KEY UPDATE descripcion = descripcion;
+
+INSERT INTO comitente (id, descripcion) VALUES (10, 'comitente 10')
+ON DUPLICATE KEY UPDATE descripcion = descripcion;
+
 INSERT INTO mercado (id, codigo, descripcion, pais_id) VALUES (1, 'MAE', 'Mercado abierto electrónico', 1)
 ON DUPLICATE KEY UPDATE codigo = codigo;
 
@@ -21,3 +42,33 @@ ON DUPLICATE KEY UPDATE codigo = codigo;
 
 INSERT INTO mercado (id, codigo, descripcion, pais_id) VALUES (3, 'UFEX', 'Mercado de futuros y opciones de Uruguay', 2)
 ON DUPLICATE KEY UPDATE codigo = codigo;
+
+INSERT INTO mercado_comitente (mercado_id, comitente_id) VALUES(1, 1)
+ON DUPLICATE KEY UPDATE mercado_id = mercado_id;
+
+INSERT INTO mercado_comitente (mercado_id, comitente_id) VALUES(1, 2)
+ON DUPLICATE KEY UPDATE mercado_id = mercado_id;
+
+INSERT INTO mercado_comitente (mercado_id, comitente_id) VALUES(1, 3)
+ON DUPLICATE KEY UPDATE mercado_id = mercado_id;
+
+INSERT INTO mercado_comitente (mercado_id, comitente_id) VALUES(1, 4)
+ON DUPLICATE KEY UPDATE mercado_id = mercado_id;
+
+INSERT INTO mercado_comitente (mercado_id, comitente_id) VALUES(1, 5)
+ON DUPLICATE KEY UPDATE mercado_id = mercado_id;
+
+INSERT INTO mercado_comitente (mercado_id, comitente_id) VALUES(1, 6)
+ON DUPLICATE KEY UPDATE mercado_id = mercado_id;
+
+INSERT INTO mercado_comitente (mercado_id, comitente_id) VALUES(1, 7)
+ON DUPLICATE KEY UPDATE mercado_id = mercado_id;
+
+INSERT INTO mercado_comitente (mercado_id, comitente_id) VALUES(2, 8)
+ON DUPLICATE KEY UPDATE mercado_id = mercado_id;
+
+INSERT INTO mercado_comitente (mercado_id, comitente_id) VALUES(3, 9)
+ON DUPLICATE KEY UPDATE mercado_id = mercado_id;
+
+INSERT INTO mercado_comitente (mercado_id, comitente_id) VALUES(3, 10)
+ON DUPLICATE KEY UPDATE mercado_id = mercado_id;
