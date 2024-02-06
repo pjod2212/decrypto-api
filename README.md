@@ -15,7 +15,9 @@ Este proyecto es una implementación CRUD usando api rest
 </li>
 </ul>
 
-# Pasos para ejecutar de forma local - Correr desde el branch dev.
+# Pasos para ejecutar de forma local .
+
+Al correr el proyeto carga automaticamente algunos datos, solo hace falta pocos pasos que a continuación voy a nombrar.
 
 Si utilizas eclipse ,  para que funcione lombok , ir a donde esta la carpeta .m2 ej (C:\Users\Pablo_Donati\.m2\repository\org\projectlombok\lombok\1.18.20) ejecutar el jar y reiniciar el   ide que estes usando.
 
