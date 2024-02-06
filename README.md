@@ -51,6 +51,16 @@ spring.sql.init.data-locations=classpath:data.sql
 spring.sql.init.mode=always
 spring.jpa.hibernate.ddl-auto=update
 
+```properties
+# Ejemplo de archivo de propiedades
+
+# Propiedad 1
+propiedad1 = valor1
+
+# Propiedad 2
+propiedad2 = valor2
+```
+
 
 # Desarrollador
 Pablo Donati
