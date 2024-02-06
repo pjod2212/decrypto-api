@@ -45,3 +45,30 @@ ON DUPLICATE KEY UPDATE codigo = codigo;
 
 INSERT INTO mercado_comitente (mercado_id, comitente_id) VALUES(1, 1)
 ON DUPLICATE KEY UPDATE mercado_id = mercado_id;
+
+INSERT INTO mercado_comitente (mercado_id, comitente_id) VALUES(1, 2)
+ON DUPLICATE KEY UPDATE mercado_id = mercado_id;
+
+INSERT INTO mercado_comitente (mercado_id, comitente_id) VALUES(1, 3)
+ON DUPLICATE KEY UPDATE mercado_id = mercado_id;
+
+INSERT INTO mercado_comitente (mercado_id, comitente_id) VALUES(1, 4)
+ON DUPLICATE KEY UPDATE mercado_id = mercado_id;
+
+INSERT INTO mercado_comitente (mercado_id, comitente_id) VALUES(1, 5)
+ON DUPLICATE KEY UPDATE mercado_id = mercado_id;
+
+INSERT INTO mercado_comitente (mercado_id, comitente_id) VALUES(1, 6)
+ON DUPLICATE KEY UPDATE mercado_id = mercado_id;
+
+INSERT INTO mercado_comitente (mercado_id, comitente_id) VALUES(1, 7)
+ON DUPLICATE KEY UPDATE mercado_id = mercado_id;
+
+INSERT INTO mercado_comitente (mercado_id, comitente_id) VALUES(2, 8)
+ON DUPLICATE KEY UPDATE mercado_id = mercado_id;
+
+INSERT INTO mercado_comitente (mercado_id, comitente_id) VALUES(3, 9)
+ON DUPLICATE KEY UPDATE mercado_id = mercado_id;
+
+INSERT INTO mercado_comitente (mercado_id, comitente_id) VALUES(3, 10)
+ON DUPLICATE KEY UPDATE mercado_id = mercado_id;
